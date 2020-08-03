@@ -15,9 +15,9 @@ void task1(void *p){
 
     while(1){
 
-            uint8 message [] = "Task 1 is executing every 0.5 second.\r\n";
+            uint8 message [] = "Task 1 is executing every 1 second.\r\n";
             sciSend(scilinREG, (uint32_t) sizeof(message), &message[0]);
-            vTaskDelay(500);
+            vTaskDelay(1000);
 
     }
 }

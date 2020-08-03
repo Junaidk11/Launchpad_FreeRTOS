@@ -1,7 +1,7 @@
 ******************************************************************************
                   TI ARM Linker Unix v18.12.3                  
 ******************************************************************************
->> Linked Mon Aug  3 00:27:46 2020
+>> Linked Mon Aug  3 00:32:15 2020
 
 OUTPUT FILE NAME:   <Launchpad_FreeRTOS.out>
 ENTRY POINT SYMBOL: "_c_int00"  address: 0000ef08
@@ -13,7 +13,7 @@ MEMORY CONFIGURATION
 ----------------------  --------  ---------  --------  --------  ----  --------
   VECTORS               00000000   00000020  00000020  00000000     X
   KERNEL                00000020   00008000  00005234  00002dcc  R  X
-  FLASH0                00008020   00137fe0  00008277  0012fd69  R  X
+  FLASH0                00008020   00137fe0  00008275  0012fd6b  R  X
   STACKS                08000000   00000800  00000000  00000800  RW  
   KRAM                  08000800   00000800  00000104  000006fc  RW  
   RAM                   08001000   0002f000  0000204c  0002cfb4  RW  
@@ -27,9 +27,9 @@ run origin  load origin   length   init length attrs members
   00000000    00000000    00000020   00000020    r-x .intvecs
   00000020    00000020    000051e4   000051e4    r-x .kernelTEXT
   00005208    00005208    00000050   00000050    r-- .cinit
-00008020    00008020    00008277   00008277    r-x
+00008020    00008020    00008275   00008275    r-x
   00008020    00008020    00008040   00008040    r-x .text
-  00010060    00010060    00000237   00000237    r-- .const
+  00010060    00010060    00000235   00000235    r-- .const
 08000800    08000800    00000104   00000000    rw-
   08000800    08000800    00000104   00000000    rw- .kernelBSS
 08001000    08001000    0000204c   00000000    rw-
@@ -97,10 +97,10 @@ section   page    origin      length       input sections
                   00010058    00000004     sys_phantom.obj (.text:retain)
                   0001005c    00000004     sys_startup.obj (.text)
 
-.const     0    00010060    00000237     
+.const     0    00010060    00000235     
                   00010060    00000200     sys_vim.obj (.const:s_vim_init)
-                  00010260    00000028     main.obj (.const:.string:$P$T0$1)
-                  00010288    0000000f     main.obj (.const:.string:$P$T1$2)
+                  00010260    00000026     main.obj (.const:.string:$P$T0$1)
+                  00010286    0000000f     main.obj (.const:.string:$P$T1$2)
 
 .kernelBSS 
 *          0    08000800    00000104     UNINITIALIZED
@@ -125,9 +125,9 @@ MODULE SUMMARY
        Module                       code    ro data   rw data
        ------                       ----    -------   -------
     ./
-       main.obj                     172     55        4      
+       main.obj                     172     53        4      
     +--+----------------------------+-------+---------+---------+
-       Total:                       172     55        4      
+       Total:                       172     53        4      
                                                              
     ./source/
        os_tasks.obj                 11584   0         260    
@@ -170,7 +170,7 @@ MODULE SUMMARY
                                                              
        Linker Generated:            0       80        0      
     +--+----------------------------+-------+---------+---------+
-       Grand Total:                 53826   647       8528   
+       Grand Total:                 53826   645       8528   
 
 
 LINKER GENERATED COPY TABLES
