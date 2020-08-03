@@ -4,7 +4,7 @@
 <stringAttribute key="com.ti.ccstudio.debug.debugModel.ATTR_PROGRAM.TMS570LS1224.ccxml.Texas Instruments XDS110 USB Debug Probe/CortexR4" value="${build_artifact:Launchpad_FreeRTOS}"/>
 <stringAttribute key="com.ti.ccstudio.debug.debugModel.ATTR_PROJECT.TMS570LS1224.ccxml.Texas Instruments XDS110 USB Debug Probe/CortexR4" value="Launchpad_FreeRTOS"/>
 <stringAttribute key="com.ti.ccstudio.debug.debugModel.ATTR_TARGET_CONFIG" value="${target_config_active_default:Launchpad_FreeRTOS}"/>
-<stringAttribute key="com.ti.ccstudio.debug.debugModel.MRU_PROGRAM.TMS570LS1224.ccxml.Texas Instruments XDS110 USB Debug Probe/CortexR4" value="C:/Users\Junaid\Documents\Launchpad_FreeRTOS\Debug\Launchpad_FreeRTOS.out"/>
+<stringAttribute key="com.ti.ccstudio.debug.debugModel.MRU_PROGRAM.TMS570LS1224.ccxml.Texas Instruments XDS110 USB Debug Probe/CortexR4" value="/Users/junaidkhan/Documents/Launchpad_FreeRTOS/Debug/Launchpad_FreeRTOS.out"/>
 <listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_PATHS">
 <listEntry value="/Launchpad_FreeRTOS"/>
 </listAttribute>
