@@ -91,7 +91,7 @@ int main(void)
                             "EmulatingAnInterrupt",
                             150,
                             (void *)0,
-                            tskIDLE_PRIORITY,  // Higher priority than the previous task. Getting Garbage output on terminal when both at same priority.
+                            tskIDLE_PRIORITY,
                             &task3Handler);
 
         vTaskStartScheduler();
