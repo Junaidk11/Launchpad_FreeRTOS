@@ -1,7 +1,7 @@
 ******************************************************************************
                   TI ARM Linker Unix v18.12.3                  
 ******************************************************************************
->> Linked Wed Aug  5 01:25:36 2020
+>> Linked Wed Aug  5 13:55:03 2020
 
 OUTPUT FILE NAME:   <Launchpad_FreeRTOS.out>
 ENTRY POINT SYMBOL: "_c_int00"  address: 0000fc0c

@@ -24,20 +24,20 @@ void task1(void *p){
     // Populate txBuffer
     sprintf(txBuffer, "QueueDataBlock1.\r\n");
 
-    // Push txBuffer contents to Queue Element 1/ Block 1
-    xQueueSend(myQueue, (void *)txBuffer, (TickType_t)0);
+    // Push txBuffer contents to the Front of the Queue
+    xQueueSendToFront(myQueue, (void *)txBuffer, (TickType_t)0);
 
     // Update txBuffer
     sprintf(txBuffer, "QueueDataBlock2.\r\n");
 
-    // Push updated txBuffer content to Queue Element 2/Block2
-    xQueueSend(myQueue,(void*)txBuffer,(TickType_t) 0);
+    // Push updated txBuffer contents to the front of the Queue, i.e. this will push previous element down/one block over
+    xQueueSendToFront(myQueue,(void*)txBuffer,(TickType_t) 0);
 
     // Update txBuffer again
     sprintf(txBuffer, "QueueDataBlock3.\r\n");
 
-    // Push the updated txBuffer content to Queue Element 3/Block3
-    xQueueSend(myQueue,(void*)txBuffer,(TickType_t) 0);
+    // Push updated txBuffer contents to the front of the Queue, i.e. this will push previous element down/one block over
+    xQueueSendToFront(myQueue,(void*)txBuffer,(TickType_t) 0);
 
     while(1){
 
