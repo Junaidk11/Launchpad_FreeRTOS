@@ -45,7 +45,7 @@ void task1(void *p){
     while(1){
 
         /**************************************** Critical Section of this Task ****************************************/
-        if(xSemaphoreTake(xMutex,portMAX_DELAY)){ // using indefinite blocking time for now.
+        if(xSemaphoreTake(xMutex,portMAX_DELAY)==1){ // using indefinite blocking time for now.
              int i;
              for(i=0; i<9 ; i++){
 
@@ -66,8 +66,10 @@ void task1(void *p){
 
             sprintf(task1Message2,"Shared Resource Protected by Mutex.\r\n");
             sciSend(scilinREG, (uint32_t)sizeof(task1Message2), (uint8 *)task1Message2);
-            vTaskDelayUntil(&myLastTickCount, pdMS_TO_TICKS(1000)); // 1000 millisecond delay
+            //vTaskDelayUntil(&myLastTickCount, pdMS_TO_TICKS(1000)); // 1000 millisecond delay
         }
+
+        vTaskDelayUntil(&myLastTickCount, pdMS_TO_TICKS(1000)); // 1000 millisecond delay to allow task 2 to get hold of the shared resource.
     }
 }
 
@@ -85,7 +87,7 @@ void task2(void *p){
     while(1){
 
         /**************************************** Critical Section of this Task ****************************************/
-        if(xSemaphoreTake(xMutex,portMAX_DELAY)){ // using indefinite blocking time for now.
+        if(xSemaphoreTake(xMutex,portMAX_DELAY)==1){ // using indefinite blocking time for now.
              int i;
              for(i=0; i<9 ; i++){
 
@@ -104,8 +106,11 @@ void task2(void *p){
         }else{
             sprintf(task2Message2,"Shared Resource Protected by Mutex.\r\n");
             sciSend(scilinREG, (uint32_t)sizeof(task2Message2),(uint8 *) task2Message2);
-            vTaskDelayUntil(&myLastTickCount, pdMS_TO_TICKS(1000)); // 1000 millisecond delay
+           // vTaskDelayUntil(&myLastTickCount, pdMS_TO_TICKS(1000)); // 1000 millisecond delay
         }
+
+        vTaskDelayUntil(&myLastTickCount, pdMS_TO_TICKS(1000)); // 1000 millisecond delay to allow task 2 to get hold of the shared resource.
+
     }
 }
 int main(void)
