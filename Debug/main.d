@@ -29,6 +29,8 @@ main.obj: /Users/junaidkhan/Documents/Launchpad_FreeRTOS/include/reg_gio.h
 main.obj: /Applications/ti/ccs910/ccs/tools/compiler/ti-cgt-arm_18.12.3.LTS/include/string.h
 main.obj: /Applications/ti/ccs910/ccs/tools/compiler/ti-cgt-arm_18.12.3.LTS/include/stdio.h
 main.obj: /Applications/ti/ccs910/ccs/tools/compiler/ti-cgt-arm_18.12.3.LTS/include/stdarg.h
+main.obj: /Users/junaidkhan/Documents/Launchpad_FreeRTOS/include/os_semphr.h
+main.obj: /Users/junaidkhan/Documents/Launchpad_FreeRTOS/include/os_queue.h
 
 ../main.c: 
 /Users/junaidkhan/Documents/Launchpad_FreeRTOS/include/FreeRTOS.h: 
@@ -59,3 +61,5 @@ main.obj: /Applications/ti/ccs910/ccs/tools/compiler/ti-cgt-arm_18.12.3.LTS/incl
 /Applications/ti/ccs910/ccs/tools/compiler/ti-cgt-arm_18.12.3.LTS/include/string.h: 
 /Applications/ti/ccs910/ccs/tools/compiler/ti-cgt-arm_18.12.3.LTS/include/stdio.h: 
 /Applications/ti/ccs910/ccs/tools/compiler/ti-cgt-arm_18.12.3.LTS/include/stdarg.h: 
+/Users/junaidkhan/Documents/Launchpad_FreeRTOS/include/os_semphr.h: 
+/Users/junaidkhan/Documents/Launchpad_FreeRTOS/include/os_queue.h: 
