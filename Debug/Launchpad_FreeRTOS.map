@@ -1,7 +1,7 @@
 ******************************************************************************
                   TI ARM Linker Unix v18.12.3                  
 ******************************************************************************
->> Linked Wed Aug  5 20:08:08 2020
+>> Linked Wed Aug  5 21:28:04 2020
 
 OUTPUT FILE NAME:   <Launchpad_FreeRTOS.out>
 ENTRY POINT SYMBOL: "_c_int00"  address: 0000fc0c
@@ -433,7 +433,7 @@ ffffffff  binit
 00010ef1  ldexp                                 
 00010ef1  ldexpl                                
 00011691  ltoa                                  
-000109b4  main                                  
+000109c0  main                                  
 0000ae6c  mapClocks                             
 00011867  memccpy                               
 00011337  memcpy                                
@@ -501,7 +501,7 @@ ffffffff  binit
 0000b060  systemPowerDown                       
 000108e8  task1                                 
 08003040  task1Handler                          
-00010968  task2                                 
+00010944  task2                                 
 08003044  task2Handler                          
 0000b4ac  tcmflashGetConfigValue                
 0000ad5c  trimLPO                               
@@ -892,8 +892,8 @@ address   name
 00010444  vListInsert                           
 00010508  uxListRemove                          
 000108e8  task1                                 
-00010968  task2                                 
-000109b4  main                                  
+00010944  task2                                 
+000109c0  main                                  
 00010b60  xTaskNotifyStateClear                 
 00010bdc  esmHighInterrupt                      
 00010ef1  ldexp                                 
