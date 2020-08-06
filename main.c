@@ -18,9 +18,9 @@ TaskHandle_t task2Handler = NULL;
 
 char sharedResource[10]; // The shared Resource written to by both task1 & task2
 
-//SemaphoreHandle_t xMutex; //1. Create a semaphore handle, but in the main function you need to tell the compiler it is a MUTEX
+SemaphoreHandle_t xMutex; //1. Create a semaphore handle, but in the main function you need to tell the compiler it is a MUTEX
 
-QueueHandle_t xMutex;
+
 
 /*
  *  We will setup a scenario where concurrency happens and this will allow to understand the importance of mutexes.
