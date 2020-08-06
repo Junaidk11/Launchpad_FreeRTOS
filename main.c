@@ -26,19 +26,26 @@ void task1(void *p){
              *  The following function will send a 32-bit value to task2. The 32-bit value by default is '0'.
              *  When this function is called, the 32-bit value is incremented by 1 and sent to task2
              */
-          xTaskNotifyGive(task2Handler);
-          vTaskDelayUntil(&myLastTickCount, pdMS_TO_TICKS(1000)); // Create a 1 second delay
 
+            // Send notification 1
           xTaskNotifyGive(task2Handler);
-          vTaskDelayUntil(&myLastTickCount, pdMS_TO_TICKS(1000)); // Create a 1 second delay
+           // Send notification 2
+          xTaskNotifyGive(task2Handler);
+           // Send notification 3
+          xTaskNotifyGive(task2Handler);
+           // Send notification 4
+          xTaskNotifyGive(task2Handler);
+
+          // Create a 5 second delay
+          vTaskDelayUntil(&myLastTickCount, pdMS_TO_TICKS(5000));
+
+
 
     }
 }
 
 void task2(void *p){
 
-    TickType_t myLastTickCount;
-    myLastTickCount = xTaskGetTickCount();
 
     int notificationValue;
     char messageBuffer[30];
@@ -54,7 +61,7 @@ void task2(void *p){
          *
          */
         notificationValue = ulTaskNotifyTake(pdFALSE, (TickType_t)portMAX_DELAY);
-        vTaskDelayUntil(&myLastTickCount, pdMS_TO_TICKS(1000)); // Create a 1 second delay
+
 
         if(notificationValue > 0){
             sprintf(messageBuffer, "Notification Received: %d. \r\n", notificationValue);
