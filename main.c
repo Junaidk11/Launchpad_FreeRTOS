@@ -46,9 +46,20 @@ void ISR_Handler(){
 
     uint8 message [] = "ISR Handler is resuming the task now.\r\n";
     sciSend(scilinREG, (uint32_t) sizeof(message), &message[0]);
-    BaseType_t checkIfYieldRequired;
-    checkIfYieldRequired = xTaskResumeFromISR(interruptHandler);
-    portYIELD_FROM_ISR(checkIfYieldRequired);
+    vTaskResume(interruptHandler);
+
+    // Yield?
+    //vPortYield();   // Not sure if we need to Yield here because this function is not a task.
+
+
+    /*
+     *  The Following Lines are used if hardware interrupt used. In this example we're emulating a software interrupt.
+     */
+    //BaseType_t checkIfYieldRequired;
+    //checkIfYieldRequired = xTaskResumeFromISR(interruptHandler);
+    //portYIELD_FROM_ISR(checkIfYieldRequired);
+
+
 
 }
 
