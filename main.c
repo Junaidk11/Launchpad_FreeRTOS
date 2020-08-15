@@ -30,7 +30,7 @@ void task1(void *p){
 
     while(1){
 
-
+            /*
             notificationSent = xTaskNotify(task2Handler, (1<<3) | (1<<2) | (1<<1) | (1<<0),eSetValueWithoutOverwrite);  //Set bit 0, 1, 2
             if(notificationSent == pdFAIL){
                 // Previous Sent notification not acknowledged yet, i.e. still pending.
@@ -38,7 +38,7 @@ void task1(void *p){
             }else if (notificationSent == pdPASS){
                 // Previous Sent notification acknowledged.
                 sciSend(scilinREG, sizeof(message1), &message1[0]);
-            }
+            }*/
 
             //vTaskDelayUntil(&myLastTickCount, pdMS_TO_TICKS(1000)); // 1 Second delay
 
@@ -57,6 +57,8 @@ void task2(void *p){
     //char messageBuffer[15];
     uint8 message1[]="Blue.\r\n";
     uint8 message2[]="Green.\r\n";
+    uint8 message3[]="Waiting for Notification.\r\n";
+    uint8 message4[]="Notification Not received.\r\n";
     uint32_t ulNotificationValue; // To store the received notification value
     while(1){
 
@@ -75,6 +77,8 @@ void task2(void *p){
                 sciSend(scilinREG,sizeof(message1),&message1[0]);
             }
         }
+        sciSend(scilinREG,sizeof(message4),&message4[0]);
+
 
         vTaskDelayUntil(&myLastTickCount, pdMS_TO_TICKS(2000)); // Block Task, allowing the next notification to come in.
 
