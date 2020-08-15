@@ -62,7 +62,7 @@ void task2(void *p){
     uint32_t ulNotificationValue; // To store the received notification value
     while(1){
 
-        if(xTaskNotifyWait(( (1<<3) | (1<<2) | (1<<1) |(1<<0)), 0, &ulNotificationValue, portMAX_DELAY)== pdTRUE){
+        if(xTaskNotifyWait(( (1<<3) | (1<<2) | (1<<1) |(1<<0)), 0, &ulNotificationValue, pdMS_TO_TICKS(1000))== pdTRUE){
             // Notification value received, cleared bits 0,1,2, not clearing bit 3
             if (ulNotificationValue & (7<<0)){  // Checking if all 3 bits were set in the notification
                 //sprintf(messageBuffer, "Green.\r\n");
