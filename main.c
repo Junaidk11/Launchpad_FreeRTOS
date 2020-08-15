@@ -25,12 +25,12 @@ void task1(void *p){
 
     while(1){
 
-            xTaskNotify(task2Handler, (1<<2) | (1<<1) |(1<<0),eSetBits);  //Set bit 0, 1, 2
-            vTaskDelayUntil(&myLastTickCount, pdMS_TO_TICKS(1000)); // 1 Second delay
+            xTaskNotify(task2Handler, (1<<3) | (1<<2) | (1<<1) | (1<<0),eSetBits);  //Set bit 0, 1, 2
+            //vTaskDelayUntil(&myLastTickCount, pdMS_TO_TICKS(1000)); // 1 Second delay
 
 
 
-            xTaskNotify(task2Handler, (1<<3),eSetValueWithOverwrite);  //Set bit 3 of Notification value, and then increment the Notification value by 1.
+            //xTaskNotify(task2Handler, (1<<3),eSetValueWithOverwrite);  //Set bit 3 of Notification value, and then increment the Notification value by 1.
             vTaskDelayUntil(&myLastTickCount, pdMS_TO_TICKS(1000)); // 1 Second delay
 
     }
@@ -38,27 +38,29 @@ void task1(void *p){
 
 void task2(void *p){
 
+    TickType_t myLastTickCount;
+    myLastTickCount = xTaskGetTickCount();
     char messageBuffer[15];
     uint32_t ulNotificationValue; // To store the received notification value
     while(1){
 
-        if(xTaskNotifyWait(((1<<2) | (1<<1) |(1<<0)), 0, &ulNotificationValue, portMAX_DELAY)== pdTRUE){
-
+        if(xTaskNotifyWait(( (1<<3) | (1<<2) | (1<<1) |(1<<0)), 0, &ulNotificationValue, portMAX_DELAY)== pdTRUE){
             // Notification value received, cleared bits 0,1,2, not clearing bit 3
             if (ulNotificationValue & (7<<0)){  // Checking if all 3 bits were set in the notification
                 sprintf(messageBuffer, "Green.\r\n");
                 sciSend(scilinREG,(uint32_t)sizeof(messageBuffer),(uint8 *)messageBuffer);
-            }/*else if(ulNotificationValue & (1<<3)){  // Checking if bit 3 of the Notification value is set
+            }else if(ulNotificationValue & (1<<3)){  // Checking if bit 3 of the Notification value is set
                 sprintf(messageBuffer, "Blue.\r\n");
                 sciSend(scilinREG,(uint32_t)sizeof(messageBuffer),(uint8 *)messageBuffer);
-            }*/
+            }
 
             if(ulNotificationValue & (1<<3)){  // Checking if bit 3 of the Notification value is set
                 sprintf(messageBuffer, "Blue.\r\n");
                 sciSend(scilinREG,(uint32_t)sizeof(messageBuffer),(uint8 *)messageBuffer);
             }
-
         }
+        vTaskDelayUntil(&myLastTickCount, pdMS_TO_TICKS(1000)); // Block Task, allowing the next notification to come in.
+
     }
 }
 
