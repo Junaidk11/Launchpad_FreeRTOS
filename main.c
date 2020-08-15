@@ -22,10 +22,24 @@ void task1(void *p){
      * The different bits of the 32-bit notification value can be used as flags by the receiving task.
      */
 
+    BaseType_t notificationSent;
+    uint8 message[]= "Notification Still Pending.\r\n";
+    uint8 message1[]= "Notification sent. \r\n";
+
+
 
     while(1){
 
-            xTaskNotify(task2Handler, (1<<3) | (1<<2) | (1<<1) | (1<<0),eSetBits);  //Set bit 0, 1, 2
+
+            notificationSent = xTaskNotify(task2Handler, (1<<3) | (1<<2) | (1<<1) | (1<<0),eSetValueWithoutOverwrite);  //Set bit 0, 1, 2
+            if(notificationSent == pdFAIL){
+                // Previous Sent notification not acknowledged yet, i.e. still pending.
+                sciSend(scilinREG, sizeof(message), &message[0]);
+            }else if (notificationSent == pdPASS){
+                // Previous Sent notification acknowledged.
+                    sciSend(scilinREG, sizeof(message1), &message1[0]);
+            }
+
             //vTaskDelayUntil(&myLastTickCount, pdMS_TO_TICKS(1000)); // 1 Second delay
 
 
@@ -43,7 +57,7 @@ void task2(void *p){
     char messageBuffer[15];
     uint32_t ulNotificationValue; // To store the received notification value
     while(1){
-
+        /*
         if(xTaskNotifyWait(( (1<<3) | (1<<2) | (1<<1) |(1<<0)), 0, &ulNotificationValue, portMAX_DELAY)== pdTRUE){
             // Notification value received, cleared bits 0,1,2, not clearing bit 3
             if (ulNotificationValue & (7<<0)){  // Checking if all 3 bits were set in the notification
@@ -58,7 +72,8 @@ void task2(void *p){
                 sprintf(messageBuffer, "Blue.\r\n");
                 sciSend(scilinREG,(uint32_t)sizeof(messageBuffer),(uint8 *)messageBuffer);
             }
-        }
+        }*/
+
         vTaskDelayUntil(&myLastTickCount, pdMS_TO_TICKS(1000)); // Block Task, allowing the next notification to come in.
 
     }
