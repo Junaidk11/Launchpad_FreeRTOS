@@ -1,5 +1,5 @@
 /**
- * main.c
+ * main.c : This main function is the test code written to implement interrupt handling in FreeRTOS
  */
 
 #include "FreeRTOS.h"
