@@ -1,5 +1,4 @@
 # FreeRTOS Practice on Hercules Safety MCU
 
-Simple Implementations of various freeRTOS functions. Check branches!
-
+Practicing various freeRTOS methods for multiple threads or tasks, mutexes, semaphores and software timers. 
  
