@@ -1,5 +1,5 @@
 /**
- * main.c
+ * main.c : Implementing freeRTOS task notification ability between two tasks.
  */
 
 #include "FreeRTOS.h"
