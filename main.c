@@ -8,96 +8,90 @@
 #include "string.h"
 
 
-
 TaskHandle_t task1Handler = NULL;
 TaskHandle_t task2Handler = NULL;
 
+
 void task1(void *p){
 
-    int counter = 0;
-    // P is type-casted as a pointer to an integer -> (int *)p, the int[(int*)p] type-casts the pointer to a data variable of type 'int', and the resulting value is assigned to the integer variable messageTypeRetrieving
-    int messageTypeRetriving = (int)(int *)p;  // The void pointer is type-casted to ensure it is pointing to data type of intended data// Arrays are immutable - once defined, cannot be changed without re-initialization.
-
+    TickType_t myLastTickCount;
+    myLastTickCount = xTaskGetTickCount();
     while(1){
 
-        if (messageTypeRetriving!=2){
-            uint8 message [] = "Task 1 is executing every 1 second.\r\n";
+            uint8 message [] = "Task 1 is executing every 2 second.\r\n";
             sciSend(scilinREG, (uint32_t) sizeof(message), &message[0]);
-            counter++;
-            vTaskDelay(1000);
+            vTaskDelayUntil(&myLastTickCount, pdMS_TO_TICKS(2000)); // 2 Second Delay
 
-        }else if(messageTypeRetriving==2){
-            uint8 message [] = "Task 1 is executing every 0.5 second.\r\n";
-            sciSend(scilinREG, (uint32_t) sizeof(message), &message[0]);
-            counter++;
-            vTaskDelay(500);
-        }
-
-        if (counter == 15){
-
-            vTaskDelete(task1Handler); // Deleting task after counter reaches 10, argument is your task's handler.
-        }
     }
 }
 
 
 void task2(void *p){
 
+
+    char myTaskList[300];  // A buffer to hold the information about all tasks running on the kernel.
     TickType_t myLastTickCount;
-    myLastTickCount = xTaskGetTickCount(); // Get current tick count
+    myLastTickCount = xTaskGetTickCount();
 
-    uint8 message[] ="Task 2 has suspended Task 1. \r\n";
-    uint8 message1[] = "After suspending task 1, 1 Second Delay starting now.\r\n";
-    uint8 message2[] ="Resuming Task 1 now.\r\n";
 
+    uint8 message2 [] ="State of Task 1:\r\n";
+    uint8 message3 [] ="State of Task 2:\r\n";
+    uint8 message4 [] ="Displaying information on all tasks running on the kernel.\r\n";
+    //eTaskState taskStates;
+    //uint8 taskState[]="0";
     while(1){
-            // Create 2 Second Delay before suspending Task 1 -> This will allow Task 1 to run for atleast 2 seconds.
-            vTaskDelayUntil(&myLastTickCount, pdMS_TO_TICKS(2000));
-            // Suspend Task 1  using vTaskSuspend(taskHandler)
-            vTaskSuspend(task1Handler);
 
-            sciSend(scilinREG, (uint32_t)sizeof(message), &message[0]);
+            uint8 message [] = "Task 2 is executing every 1 second.\r\n";
+            sciSend(scilinREG, (uint32_t) sizeof(message), &message[0]);
+            vTaskDelayUntil(&myLastTickCount, pdMS_TO_TICKS(1000)); // 1 Second Delay
 
-           // Create a delay of 1 Seconds after Suspending Task 1.
-           sciSend(scilinREG, (uint32_t)sizeof(message1), &message1[0]);
-           vTaskDelayUntil(&myLastTickCount, pdMS_TO_TICKS(1000));
+            //taskStates = eTaskGetState(task1Handler); // Get state of task1
+            //taskState = taskStates;
+            sciSend(scilinREG, (uint32_t) sizeof(message2), &message2[0]);
+            //sciSend(scilinREG, (uint32_t) sizeof(taskState), &taskState);
 
-           // Resuming Task 1 now.
-           sciSend(scilinREG, (uint32_t)sizeof(message2), &message2[0]);
-           vTaskResume(task1Handler);
 
-           // Allow Task 1 to run for 2 seconds
-           vTaskDelayUntil(&myLastTickCount, pdMS_TO_TICKS(2000));
+
+            //taskStates = eTaskGetState(task1Handler); // Get state of task2
+            //taskStateHolder[0] = (uint8)taskStates;
+
+
+            sciSend(scilinREG, (uint32_t) sizeof(message3), &message3[0]);
+            //sciSend(scilinREG, (uint32_t) sizeof(taskStates), &taskStates);
+
+            vTaskDelayUntil(&myLastTickCount, pdMS_TO_TICKS(1000)); // 1 Second Delay - this will allow Task 1 to run
+
+            vTaskList(myTaskList); // This function will store the task information of all the tasks running of the freeRTOS kernel.
+            sciSend(scilinREG, (uint32_t) sizeof(message4), &message4[0]);
+            sciSend(scilinREG, (uint32_t) sizeof((uint8)myTaskList), &myTaskList[0]);
 
     }
+
 }
+
+
 
 int main(void)
 {
-    // Arrays are immutable - once defined, cannot be changed without re-initialization.
     sciInit();
 
-    int messageType = 2;
     uint8 message [] = "Inside Main.\r\n";
     sciSend(scilinREG, (uint32_t) sizeof(message), &message[0]);
-
-    // Creating two Tasks
 
     xTaskCreate(task1,
                 "task1",
                 200,
-                (void *)messageType,
+                (void *)0,
                 tskIDLE_PRIORITY,
                 &task1Handler);
 
     xTaskCreate(task2,
-                    "task2",
-                    200,
-                    (void *)0,
-                    tskIDLE_PRIORITY,
-                    &task2Handler);
-
-    vTaskStartScheduler();
+                "task2",
+                200,
+                (void *)0,
+                tskIDLE_PRIORITY+1,
+                &task2Handler);
+        vTaskStartScheduler();
 
 	while(1);
 }
