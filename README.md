@@ -1,4 +1,8 @@
 # FreeRTOS Practice on Hercules Safety MCU
 
-Practicing various freeRTOS methods for multiple threads or tasks, mutexes, semaphores and software timers. 
+## FreeRTOS Features explored: 
+
+  - Creating tasks and using task utility functions.
+  - Creating mutexes to protect shared resources.
+  - Initializing and Configuring Software timers. 
  
